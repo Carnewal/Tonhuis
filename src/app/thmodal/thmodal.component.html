@@ -1,0 +1,33 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{product['title']}} 
+        <small>({{product['images']['data'].length}} foto{{product['images']['data'].length > 1 ? '\'s' : ''}})</small>
+    </h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="modal-body modal-body-narrow">
+    <ngb-carousel>
+      <ng-template *ngFor="let prodImg of product['images']['data']" ngbSlide>  
+        <img class="img-fluid" src="http://www.tonhuis.be/content/thumbnail/600/600/contain/better/{{prodImg.name}}" alt="Random third slide">
+      </ng-template>
+    </ngb-carousel>
+</div>
+
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <h3><markdown>{{product['description']}}</markdown></h3>
+            <h4>Prijs: € {{product['price']}}</h4>
+            <markdown>{{product['info']}}</markdown>
+            <p>
+                >> <a href="mailto:info@tonhuis.be?Subject=Ik ben geïnteresseerd in: {{product['title']}}">Geïnteresseerd in dit item? Klik hier om ons een mail te sturen: info@tonhuis.be</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-custom" (click)="activeModal.close('Close click')">Sluiten</button>
+</div>

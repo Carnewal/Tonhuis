@@ -1,26 +1,26 @@
-<nav class="navbar navbar-expand-md navbar-dark fixed-top navbar-custom">
-    <a class="navbar-brand" href="#">Tonhuis</a>
-    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+<nav [ngClass]="{'navbar-th-scrolled':isPageScrolled}" class="navbar navbar-toggleable-sm fixed-top navbar-th" id="th-navbar">
+    <button (click)="isNavbarCollapsed=!isNavbarCollapsed" class="navbar-toggler navbar-toggler-right navbar-toggler-th" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fa fa-bars"></i>
     </button>
-    <div class="navbar-collapse collapse" id="navbarCollapse">
-      <ul class="nav navbar-nav">
+    <a class="navbar-brand" href="#">Tonhuis</a>
+  
+    <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse navbar-toggleable" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="#home">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <a class="nav-link" href="#aanbod">Aanbod</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link disabled" href="#">Disabled</a>
+          <a class="nav-link" href="#realisaties">Realisaties</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#contact">Contact</a>
         </li>
       </ul>
-      <form class="form-inline mt-2 mt-md-0">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
     </div>
-  </nav>
+</nav>
 
 <section id="home">
   <div class="home-bg"></div>
@@ -28,22 +28,21 @@
     <div class="row">
       <div class="col-md-12 text-center">
         <h1 class="intro-title">{{getSiteText('head_title')}}</h1>
-        <p class="intro-text">{{getSiteText('head_subtitle')}}<br></p>
-        <div class="btn-bar">
-          <!-- <a href="#" class="btn btn-custom">Creëer</a> -->
-          <a href="#" class="btn btn-custom-outline">Contacteer</a>
-        </div>
+        <p class="intro-text">
+          <markdown data="{{getSiteText('head_subtitle')}}"></markdown>
+          <br/>
+        </p>
       </div>
     </div>
   </div>
 </section>
 
 
-<section id="works" class="text-center">
+<section id="aanbod" class="text-center">
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <h3 class="title">Recent Werk</h3>
+          <h3 class="title">Aanbod</h3>
           <p class="slog">
             <markdown data="{{getSiteText('products_title')}}"></markdown>
           </p>
@@ -56,7 +55,7 @@
             <div class="item-img-wrap">
               <img src="http://www.tonhuis.be/content/thumbnail/300/300/crop/best/{{product['images']['data'][0]['name']}}" class="img-responsive" alt="workimg">
               <div class="item-img-overlay">
-                <a href="" class="show-image">
+                <a (click)="openProductModal(product)" class="show-image">
                   <span></span>
                 </a>
               </div>
@@ -68,6 +67,9 @@
                 <br/>
                 <markdown data="{{product['description']}}"></markdown>
               </p>
+              <div class="work-foot">
+                <button type="button" class="btn btn-custom btn-custom-interested float-right" (click)="openProductModal(product)">INFO en foto's</button>
+              </div>
             </div>
           </div>
         </div>       
@@ -88,25 +90,31 @@
   
 
 
-<section class="parallax" id="testimonials">
-  <div class="container">
-    <div class="row">
-      
-    </div>
+<section class="parallax" id="realisaties">
+  <div class="container-fluid">
+    <ngb-carousel>
+      <ng-template *ngFor="let testimonial of testimonials" ngbSlide>  
+        <img class="carousel-img mx-auto d-block" src="http://www.tonhuis.be/content/thumbnail/200/200/contain/best/{{testimonial['image']['data']['name']}}" alt="Random third slide">
+        <div class="carousel-caption">
+          <h3 class="carousel-h3"><span class="carousel-marking">{{testimonial['title']}}</span></h3>
+          <markdown class="carousel-p carousel-marking" data="{{testimonial['description']}}"></markdown>
+        </div>
+      </ng-template>
+    </ngb-carousel>
   </div>
 </section>
 
 <section id="contact" class="bg-dark">
   <div class="container">
     <div class="row text-center justify-content-md-center">
-        <div class="col-md-12 col-md-offset-2">
+        <div class="col-md-12">
             <h3>
               <markdown data="{{getSiteText('contact_title')}}"></markdown>
             </h3><br/><br/>
         </div>
     </div>
     <div class="row text-center info-contact">
-      <div class="col-sm-4 margin-b-md">
+      <div class="col-sm-6 col-md-4 margin-b-md">
         <i class="fa fa-envelope-open"></i>
         <h4>Mailen</h4>
         Mail ons op
@@ -114,27 +122,25 @@
           {{getSiteText('contact_mail')}}
         </a>
       </div>
-
-      <div class="col-sm-4 margin-b-md">
+      <div class="col-sm-6 col-md-4 margin-b-md">
+          <i class="fa fa-phone"></i>
+          <h4>Bellen</h4>
+          Bel ons op
+          <a href="tel:{{getSiteText('contact_phone')}}" class="support">{{getSiteText('contact_phone')}}</a>
+        </div>
+      <div class="col-sm-6 col-md-4 offset-sm-3 offset-md-0 margin-b-md">
         <i class="fa fa-map-marker"></i>
         <h4>Locatie</h4>
-        <a target="_blank" href="https://www.google.be/maps/place/{{getSiteText('contact_location')}}" class="support">
+        <a target="_blank" rel="noopener" href="https://www.google.be/maps/place/{{getSiteText('contact_location')}}" class="support">
           <markdown data="{{getSiteText('contact_location')}}"></markdown>
         </a>
-      </div>
-
-      <div class="col-sm-4 margin-b-md">
-        <i class="fa fa-mobile"></i>
-        <h4>Bellen</h4>
-        Bel ons op
-        <a href="tel:{{getSiteText('contact_phone')}}" class="support">{{getSiteText('contact_phone')}}</a>
       </div>
     </div>
   </div>
 </section>
 
 <footer class="footer text-center"> <!-- Footer-copyright -->
-  <p>© 2013 - {{currentDate | date: 'yyyy'}} | Tonhuis.</p>
+  <p>© 2015 - {{currentDate | date: 'yyyy'}} | Tonhuis.</p>
 </footer>
 
 <a href="#" class="back-to-top"> <i class="fa fa-chevron-up"> </i> </a>

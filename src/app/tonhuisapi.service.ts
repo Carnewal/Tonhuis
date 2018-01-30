@@ -18,7 +18,8 @@ export class TonhuisAPIService {
         return Observable.forkJoin(
             this.getSiteTexts(),
             this.getProducts(),
-            this.getSpotlightProduct()
+            this.getSpotlightProduct(),
+            this.getTestimonials()
         );
     }
 
@@ -30,5 +31,8 @@ export class TonhuisAPIService {
     }
     getSpotlightProduct() {
         return this.http.get(`${this.API_ROOT}/content/api/1.1/tables/spotlight_product/rows`);
+    }
+    getTestimonials() {
+        return this.http.get(`${this.API_ROOT}/content/api/1.1/tables/testimonials/rows`);
     }
 }
