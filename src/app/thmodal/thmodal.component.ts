@@ -5,7 +5,7 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
     selector: 'app-th-modal-content',
     templateUrl: './thmodal.component.html'
   })
-export default class ThModalComponent {
+export class ThModalComponent {
     @Input() product: Object;
     constructor(public activeModal: NgbActiveModal) {}
 }

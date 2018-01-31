@@ -3,7 +3,7 @@ import { TonhuisAPIService } from './tonhuisapi.service';
 import { Observable } from 'rxjs/Observable';
 import { MarkdownService } from 'ngx-md';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import ThModalComponent from './thmodal/thmodal.component';
+import { ThModalComponent } from './thmodal/thmodal.component';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +18,7 @@ export class AppComponent implements OnInit {
   public testimonials = [];
   public spotlightProduct = {};
 
+  public isPageLoading = true;
   public isNavbarCollapsed = true;
   public isPageScrolled = false;
   public defaultProductsShown = 4;
@@ -72,7 +73,9 @@ export class AppComponent implements OnInit {
         this.testimonials = data[3]['data'];
        },
       err => console.error(err),
-      () => {} // Hide loader spinner
+      () => {
+        this.isPageLoading = false;
+      } // Hides loader spinner
     );
   }
 

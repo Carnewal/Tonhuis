@@ -1,3 +1,7 @@
+<div *ngIf="isPageLoading" class="animationload">
+  <div class="loader">Tonnen laden...</div>
+</div>
+
 <nav [ngClass]="{'navbar-th-scrolled':isPageScrolled}" class="navbar navbar-toggleable-sm fixed-top navbar-th" id="th-navbar">
     <button (click)="isNavbarCollapsed=!isNavbarCollapsed" class="navbar-toggler navbar-toggler-right navbar-toggler-th" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <i class="fa fa-bars"></i>
