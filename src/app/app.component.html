@@ -57,7 +57,7 @@
         <div *ngFor="let product of products; let i = index" class="col-lg-3 col-sm-6 port-item margin-b-md">
           <div *ngIf="showAllProducts || i < defaultProductsShown">
             <div class="item-img-wrap">
-              <img src="http://www.tonhuis.be/content/thumbnail/300/300/crop/best/{{product['images']['data'][0]['name']}}" class="img-responsive" alt="workimg">
+              <img src="http://www.tonhuis.be/content/thumbnail/300/300/crop/best/{{product['images']['data'][0]['name']}}" class="img-responsive" alt="afbeelding {{product['title']}}">
               <div class="item-img-overlay">
                 <a (click)="openProductModal(product)" class="show-image">
                   <span></span>
@@ -65,7 +65,7 @@
               </div>
             </div>
             <div class="work-desc">
-              <h3><a href="#">{{product['title']}}</a></h3>
+              <h3><a (click)="openProductModal(product)" class="can-click">{{product['title']}}</a></h3>
               <p>
                 € {{product['price']}}
                 <br/>
@@ -98,7 +98,7 @@
   <div class="container-fluid">
     <ngb-carousel>
       <ng-template *ngFor="let testimonial of testimonials" ngbSlide>  
-        <img class="carousel-img mx-auto d-block" src="http://www.tonhuis.be/content/thumbnail/200/200/contain/best/{{testimonial['image']['data']['name']}}" alt="Random third slide">
+        <img class="carousel-img mx-auto d-block" src="http://www.tonhuis.be/content/thumbnail/200/200/contain/best/{{testimonial['image']['data']['name']}}" alt="afbeelding {{testimonial['title']}}">
         <div class="carousel-caption">
           <h3 class="carousel-h3"><span class="carousel-marking">{{testimonial['title']}}</span></h3>
           <markdown class="carousel-p carousel-marking" data="{{testimonial['description']}}"></markdown>
@@ -144,7 +144,7 @@
 </section>
 
 <footer class="footer text-center"> <!-- Footer-copyright -->
-  <p>© 2015 - {{currentDate | date: 'yyyy'}} | Tonhuis.</p>
+  <p>© 2014 - {{currentDate | date: 'yyyy'}} | Tonhuis.</p>
 </footer>
 
 <a href="#" class="back-to-top"> <i class="fa fa-chevron-up"> </i> </a>

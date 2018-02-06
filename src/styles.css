@@ -731,10 +731,12 @@ body {
 }
 
 .carousel-control-next {
-    width: 50%;
-    padding-left:25%;
+    width: 30%;
 }
 .carousel-control-prev {
-    width: 50%;
-    padding-right:25%;
+    width: 30%;
+}
+
+.can-click {
+    cursor: pointer;
 }

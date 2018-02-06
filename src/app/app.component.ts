@@ -16,12 +16,11 @@ export class AppComponent implements OnInit {
   public siteText = [];
   public products = [];
   public testimonials = [];
-  public spotlightProduct = {};
 
   public isPageLoading = true;
   public isNavbarCollapsed = true;
   public isPageScrolled = false;
-  public defaultProductsShown = 4;
+  public defaultProductsShown = 8;
   public showAllProducts = false;
   public currentDate = new Date();
 
@@ -67,9 +66,6 @@ export class AppComponent implements OnInit {
       data => {
         this.siteText = data[0]['data'];
         this.products = data[1]['data'];
-        this.spotlightProduct = this.products.find(
-          p => p.id === data[2]['data'][0]['product_id']['data']['id']
-        );
         this.testimonials = data[3]['data'];
        },
       err => console.error(err),
